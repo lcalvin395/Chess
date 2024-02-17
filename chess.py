@@ -6,14 +6,18 @@ import numpy as np
 
 
 class Piece:
-    def __init__(self,name,ident,char,quant,):
+    def __init__(self,name,ident,char,quant,pos):
         self.name=name
         self.ident=ident
         self.char=char
         self.quant=quant
+        self.pos=pos
 
     def __str__(self):
-        return f'\n{self.name}: {self.char}\n{self.quant} pieces\n'
+        return f'\n{self.name}: {self.char}\n{self.quant} pieces\npos: {self.pos}\n'
+    
+    def piecetoboard(self):
+        put piece on board
 
 
 class Board:
@@ -22,23 +26,70 @@ class Board:
         self.grid=grid
         self.gridchars=gridchars
     
+w_pawn=[]
+w_knig=[]
+w_rook=[]
+w_bish=[]
+w_king=[]
+w_quen=[]
 
-pawn1=Piece('Pawn',1,'♟︎',8)
-knig1=Piece('Knight',2,'♞',2)
-rook1=Piece('Rook',3,'♜',2)
-bish1=Piece('Bishop',4,'♝',2)
-king1=Piece('King',6,'♚',1)
-quen1=Piece('Queen',5,'♛',1)
+b_pawn=[]
+b_knig=[]
+b_rook=[]
+b_bish=[]
+b_king=[]
+b_quen=[]
 
-pawn2=Piece('Pawn',1,'♙',10)
-knig2=Piece('Knight',2,'♘',2)
-rook2=Piece('Rook',3,'♖',2)
-bish2=Piece('Bishop',4,'♗',2)
-king2=Piece('King',6,'♕',1)
-quen2=Piece('Queen',5,'♔',1)
+for i in range(0,8):
+    w_pawn.append(Piece('Pawn',1,'♟︎',8,[i,1]))
 
-print(pawn1)
+for i in range(0,8):
+    if i==(1 or 6):
+        w_knig.append(Piece('Knight',2,'♞',2,[i,0]))
 
+for i in range(0,8):
+    if i==(0 or 7):
+        w_rook.append(Piece('Rook',3,'♜',2,[i,0]))
+
+for i in range(0,8):
+    if i==(2 or 5):    
+        w_bish.append(Piece('Bishop',4,'♝',2,[i,0]))
+
+for i in range(0,8):
+    if i==(4):
+        w_king.append(Piece('King',6,'♚',1,[i,0]))
+
+for i in range(0,8):
+    if i==(3):
+        w_quen.append(Piece('Queen',5,'♛',1,[i,0]))
+
+
+
+
+for i in range(0,8):
+    b_pawn.append(Piece('Pawn',1,'♙',8,[i,6]))
+
+for i in range(0,8):
+    if i==(1 or 6):
+        b_knig.append(Piece('Knight',2,'♘',2,[i,7]))
+
+for i in range(0,8):
+    if i==(0 or 7):
+        b_rook.append(Piece('Rook',3,'♖',2,[i,7]))
+
+for i in range(0,8):
+    if i==(2 or 5):  
+        b_bish.append(Piece('Bishop',4,'♗',2,[i,7]))
+
+for i in range(0,8):
+    if i==(4):       
+        b_king.append(Piece('King',6,'♕',1,[i,7]))
+
+for i in range(0,8):
+    if i==(3):  
+        b_quen.append(Piece('Queen',5,'♔',1,[i,7]))
+
+print(w_pawn[3])
 
 
 board=Board('Board',np.zeros((8,8)),np.zeros((8,8)))
@@ -56,6 +107,11 @@ board.grid[6]=np.ones(8)
 board.grid[7]=[3, 2, 4, 5, 6, 4, 2, 3]
 
 print(board.grid)
+
+
+
+
+
 
 for i in range(0,len(board.grid[0])):
     for j in range(0,len(board.grid[0])):
