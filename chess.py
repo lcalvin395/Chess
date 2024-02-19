@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+from pynput import keyboard
+
 
 
 
@@ -19,20 +21,20 @@ class Piece:
     
     def piecetoboard(self):
 
-        board.grid[self.posy][self.posx]=self.char
-
+        board.grid[self.posy][self.posx]=self.name,self.ident,self.char,self.quant,self.posx, self.posy
+        board.disp[self.posy][self.posx]=self.char
 
 class Board:
-    def __init__(self,name,grid,gridchars):
+    def __init__(self,name,grid,disp):
         self.name=name
         self.grid=grid
-        self.gridchars=gridchars
+        self.disp=disp
 
 
 
 
 
-board=Board('Board',np.zeros((8,8)),np.zeros((8,8)))
+board=Board('Board',np.zeros((8,8),dtype=dict),np.zeros((8,8),dtype=dict))
 
 print(board.grid,'\n\n\n')
 
@@ -130,9 +132,21 @@ for i in range(0,8):
         b_quen.append(Piece('Queen',5,'♔',1,i,7))
         b_quen[len(b_quen)-1].piecetoboard()
 
+
+
+for i in range(0,8):
+    for j in range(0,8):
+        if board.disp[i][j]==0:
+            board.disp[i][j]='☐'
+
+
+
+
+
 #w_pawn[1].piecetoboard()
 #print(board.grid[0][1])
-print(board.grid)
+print(board.disp)
+
 
 '''w_pawn.piecetoboard()
 w_knig.piecetoboard()
@@ -166,5 +180,14 @@ b_quen.piecetoboard()'''
 
 
 
+print('To play enter X and Y value of piece you want to move.')
 
+inp='r'
+
+while inp != 'n':
+    with keyboard.Events() as events:
+        # Block for as much as possible
+        event = events.get(1e6)
+        inp=event.key
+        print(inp)
 
