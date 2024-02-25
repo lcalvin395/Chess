@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-from pynput import keyboard
+import keyboard
 
 
 
@@ -33,7 +33,25 @@ class Board:
 
 
 
+def reprint(msg, finish=False): 
+    global _last_print_len 
+     
+    print(' '*_last_print_len, end='\r') 
+     
+    if finish: 
+        end = '\n' 
+        _last_print_len = 0 
+    else: 
+        end = '\r' 
+        _last_print_len = len(msg) 
+     
+    print(msg, end=end)
 
+
+
+
+
+_last_print_len=0
 board=Board('Board',np.zeros((8,8),dtype=dict),np.zeros((8,8),dtype=dict))
 
 print(board.grid,'\n\n\n')
@@ -159,7 +177,7 @@ b_pawn.piecetoboard()
 b_knig.piecetoboard()
 b_rook.piecetoboard()
 b_bish.piecetoboard()
-b_king.piecetoboard()
+b_king.piecetoboard()d
 b_quen.piecetoboard()'''
 
 
@@ -178,16 +196,57 @@ b_quen.piecetoboard()'''
 
 
 
+ 
 
 
-print('To play enter X and Y value of piece you want to move.')
 
-inp='r'
 
-while inp != 'n':
-    with keyboard.Events() as events:
-        # Block for as much as possible
-        event = events.get(1e6)
-        inp=event.key
-        print(inp)
 
+print('To play enter X and Y value of piece you want to move: ')
+xy=[]
+n=0
+while True:
+    if n<0:
+        n=0
+    if n>2:
+        n=2
+    event = keyboard.read_event()
+    if event.event_type == 'down':
+        if event.name=='backspace':
+            n=n-1
+            xy.pop(n)
+            print('_____________', end="\r", flush=True)
+            try:
+
+                print(xy[0], end="\r", flush=True)
+            except:
+                continue
+            try:
+                print(xy[1], end="", flush=True)
+            except:
+                continue
+            continue
+        if n==0:
+            xy.append(int(event.name))
+            print(xy[0], end="\r", flush=True)
+        if n==1:
+            xy.append(int(event.name))
+            #print(event.name, end="", flush=True)
+            print(xy[0], end="", flush=True)
+            print(xy[1], end="", flush=True)
+        if n==2 and event.name=='enter':
+            print('\n')
+            break
+        #print(xy, end="\r", flush=True)
+        n+=1
+
+#print(xy[:], end="", flush=True)
+print('\n')
+print('\n')
+print('\n')
+print('\n')
+print('\n')
+
+'''if event.name == 'n':
+        print(event.name)
+        break'''
