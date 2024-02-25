@@ -202,44 +202,50 @@ b_quen.piecetoboard()'''
 
 
 
-print('To play enter X and Y value of piece you want to move: ')
+print('Enter X and Y value of piece you want to move followed by enter: \n')
 xy=[]
 n=0
+print('__', end="\r", flush=True)
 while True:
     if n<0:
         n=0
     if n>2:
         n=2
-    event = keyboard.read_event()
-    if event.event_type == 'down':
-        if event.name=='backspace':
-            n=n-1
-            xy.pop(n)
-            print('_____________', end="\r", flush=True)
-            try:
+    try:
+        event = keyboard.read_event()
+        if event.event_type == 'down':
+            if event.name=='backspace':
+                n=n-1
+                xy.pop(n)
+                print('__', end="\r", flush=True)
+                try:
 
+                    print(xy[0], end="\r", flush=True)
+                except:
+                    continue
+                try:
+                    print(xy[1], end="\r", flush=True)
+                except:
+                    continue
+                continue
+            if n==0:
+                xy.append(int(event.name))
                 print(xy[0], end="\r", flush=True)
-            except:
-                continue
-            try:
-                print(xy[1], end="", flush=True)
-            except:
-                continue
-            continue
-        if n==0:
-            xy.append(int(event.name))
-            print(xy[0], end="\r", flush=True)
-        if n==1:
-            xy.append(int(event.name))
-            #print(event.name, end="", flush=True)
-            print(xy[0], end="", flush=True)
-            print(xy[1], end="", flush=True)
-        if n==2 and event.name=='enter':
-            print('\n')
-            break
-        #print(xy, end="\r", flush=True)
-        n+=1
-
+            if n==1:
+                xy.append(int(event.name))
+                #print(event.name, end="", flush=True)
+                print(xy[0], end="", flush=True)
+                print(xy[1], end="\r", flush=True)
+            if n==2 and event.name=='enter':
+                print('\n')
+                break
+            #print(xy, end="\r", flush=True)
+            n+=1
+    except:
+        print('Correct input is 2 numbers followed by enter......\nTry again.')
+        print('Enter X and Y value of piece you want to move followed by enter: \n')
+        print('__',end="\r", flush=True)
+        continue
 #print(xy[:], end="", flush=True)
 print('\n')
 print('\n')
