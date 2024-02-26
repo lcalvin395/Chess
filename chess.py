@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 import keyboard
-
+import time
 
 
 
@@ -47,6 +47,58 @@ def reprint(msg, finish=False):
      
     print(msg, end=end)
 
+def inputxy():
+    print('Enter X and Y value followed by enter: \n')
+    xy=[]
+    n=0
+    print('__', end="\r", flush=True)
+    while True:
+        if n<0:
+            n=0
+        if n>2:
+            n=2
+        try:
+            event = keyboard.read_event()
+            if event.event_type == 'down':
+                if event.name=='backspace':
+                    n=n-1
+                    xy.pop(n)
+                    print('__', end="\r", flush=True)
+                    try:
+
+                        print(xy[0], end="\r", flush=True)
+                    except:
+                        continue
+                    try:
+                        print(xy[1], end="\r", flush=True)
+                    except:
+                        continue
+                    continue
+                if n==0:
+                    xy.append(int(event.name))
+                    print(xy[0], end="\r", flush=True)
+                if n==1:
+                    xy.append(int(event.name))
+                    #print(event.name, end="", flush=True)
+                    print(xy[0], end="", flush=True)
+                    print(xy[1], end="\r", flush=True)
+                if n==2 and event.name=='enter':
+                    print('\n')
+                    break
+                #print(xy, end="\r", flush=True)
+                n+=1
+        except:
+            print('Correct input is 2 numbers followed by enter......\nTry again.')
+            print('Enter X and Y value of piece you want to move followed by enter: \n')
+            print('__',end="\r", flush=True)
+            continue
+    #print(xy[:], end="", flush=True)
+    print('\n')
+    print('\n')
+    print('\n')
+    print('\n')
+    print('\n')
+    return(xy)
 
 
 
@@ -54,7 +106,7 @@ def reprint(msg, finish=False):
 _last_print_len=0
 board=Board('Board',np.zeros((8,8),dtype=dict),np.zeros((8,8),dtype=dict))
 
-print(board.grid,'\n\n\n')
+#print(board.grid,'\n\n\n')
 
 '''board.grid=[[3, 2, 4, 5, 6, 4, 2, 3][1, 1, 1, 1, 1, 1, 1, 1] [0, 0, 0, 0, 0, 0, 0, 0,]
  [0, 0, 0, 0, 0, 0, 0, 0,]
@@ -163,7 +215,7 @@ for i in range(0,8):
 
 #w_pawn[1].piecetoboard()
 #print(board.grid[0][1])
-print(board.disp)
+#print(board.disp)
 
 
 '''w_pawn.piecetoboard()
@@ -192,66 +244,42 @@ b_quen.piecetoboard()'''
         if i< 2:
             if pawn1.ident==board.grid[i,j]:
                 board.gridchars[i,j]= pawn1.char'''
+########################################################
+################ Start of Main Script ##################
+#########################################################
+for i in range(5):
+    reprint('BOOTING UP CHESS.')
+    time.sleep(0.2)
+    reprint('BOOTING UP CHESS..')
+    time.sleep(0.2)
+    reprint('BOOTING UP CHESS...')
+    time.sleep(0.2)
+print('                            ')
+print('BOOTED!\n')
+for i in range(5):
+    reprint('CONSTRUCTING BOARD.')
+    time.sleep(0.2)
+    reprint('CONSTRUCTING BOARD..')
+    time.sleep(0.2)
+    reprint('CONSTRUCTING BOARD...')
+    time.sleep(0.2)
+print('                          ')
+print('CONSTRUCTED!\n')
+for i in range(5):
+    reprint('RECRUITING PIECES.')
+    time.sleep(0.2)
+    reprint('RECRUITING PIECES..')
+    time.sleep(0.2)
+    reprint('RECRUITING PIECES...')
+    time.sleep(0.2)
+print('                        ')
+print('RECRUITED!\n')
+print(board.disp,'\n')
 
-
-
-
- 
-
-
-
-
-
-print('Enter X and Y value of piece you want to move followed by enter: \n')
-xy=[]
-n=0
-print('__', end="\r", flush=True)
-while True:
-    if n<0:
-        n=0
-    if n>2:
-        n=2
-    try:
-        event = keyboard.read_event()
-        if event.event_type == 'down':
-            if event.name=='backspace':
-                n=n-1
-                xy.pop(n)
-                print('__', end="\r", flush=True)
-                try:
-
-                    print(xy[0], end="\r", flush=True)
-                except:
-                    continue
-                try:
-                    print(xy[1], end="\r", flush=True)
-                except:
-                    continue
-                continue
-            if n==0:
-                xy.append(int(event.name))
-                print(xy[0], end="\r", flush=True)
-            if n==1:
-                xy.append(int(event.name))
-                #print(event.name, end="", flush=True)
-                print(xy[0], end="", flush=True)
-                print(xy[1], end="\r", flush=True)
-            if n==2 and event.name=='enter':
-                print('\n')
-                break
-            #print(xy, end="\r", flush=True)
-            n+=1
-    except:
-        print('Correct input is 2 numbers followed by enter......\nTry again.')
-        print('Enter X and Y value of piece you want to move followed by enter: \n')
-        print('__',end="\r", flush=True)
-        continue
-#print(xy[:], end="", flush=True)
-print('\n')
-print('\n')
-print('\n')
-print('\n')
-print('\n')
+print('Move which piece?')
+xy=inputxy()
+print('xy: ',xy)
+print(board.grid[xy[1],xy[0]])
 
 '''if event.name == 'n':
         print(event.name)
