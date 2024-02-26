@@ -8,13 +8,14 @@ import time
 
 
 class Piece:
-    def __init__(self,name,ident,char,quant,posx, posy):
+    def __init__(self,name,ident,char,quant,posx, posy,xymove):
         self.name=name
         self.ident=ident
         self.char=char
         self.quant=quant
         self.posx=posx
         self.posy=posy
+        self.xymove=xymove
 
     def __str__(self):
         return f'\n{self.name}: {self.char}\n{self.quant} pieces\nposx: {self.posx}\nposy: {self.posy}\n'
@@ -139,14 +140,14 @@ b_quen=[]
 
 
 for i in range(0,8):
-    w_pawn.append(Piece('Pawn',1,'♟︎',8,i,1))
+    w_pawn.append(Piece('Pawn',1,'♟︎',8,i,1,[[0,-1],[-1,-1],[-1,1]]))
     w_pawn[len(w_pawn)-1].piecetoboard()
 
 
 
 for i in range(0,8):
     if i==1 or i==6:
-        w_knig.append(Piece('Knight',2,'♞',2,i,0))
+        w_knig.append(Piece('Knight',2,'♞',2,i,0,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]]))
         w_knig[len(w_knig)-1].piecetoboard()
 
 for i in range(0,8):
