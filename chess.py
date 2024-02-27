@@ -8,7 +8,7 @@ import time
 
 
 class Piece:
-    def __init__(self,name,ident,char,quant,posx, posy,xymove):
+    def __init__(self,name,ident,char,quant,posx, posy,xymove,xybigmove):
         self.name=name
         self.ident=ident
         self.char=char
@@ -16,20 +16,23 @@ class Piece:
         self.posx=posx
         self.posy=posy
         self.xymove=xymove
+        self.xybigmove=xybigmove
 
     def __str__(self):
         return f'\n{self.name}: {self.char}\n{self.quant} pieces\nposx: {self.posx}\nposy: {self.posy}\n'
     
     def piecetoboard(self):
 
-        board.grid[self.posy][self.posx]=self.name,self.ident,self.char,self.quant,self.posx, self.posy
+        board.grid[self.posy][self.posx]=self.name,self.ident,self.char,self.quant,self.posx, self.posy, self.xymove, self.xybigmove
         board.disp[self.posy][self.posx]=self.char
+    
 
 class Board:
     def __init__(self,name,grid,disp):
         self.name=name
         self.grid=grid
         self.disp=disp
+    
 
 
 
@@ -136,71 +139,72 @@ b_king=[]
 b_quen=[]
 
 
-
+xdiff=0
+ydiff=0
 
 
 for i in range(0,8):
-    w_pawn.append(Piece('Pawn',1,'♟︎',8,i,1,[[0,-1],[-1,-1],[-1,1]]))
+    w_pawn.append(Piece('Pawn',1,'♟︎',8,i,1,[[0,-1],[-1,-1],[1,-1]],0))
     w_pawn[len(w_pawn)-1].piecetoboard()
 
 
 
 for i in range(0,8):
     if i==1 or i==6:
-        w_knig.append(Piece('Knight',2,'♞',2,i,0,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]]))
+        w_knig.append(Piece('Knight',2,'♞',2,i,0,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
         w_knig[len(w_knig)-1].piecetoboard()
 
 for i in range(0,8):
     if i==0 or i== 7:
-        w_rook.append(Piece('Rook',3,'♜',2,i,0))
+        w_rook.append(Piece('Rook',3,'♜',2,i,0,[[1,0],[0,1]],1))
         w_rook[len(w_rook)-1].piecetoboard()
 
 for i in range(0,8):
     if i==2 or i==5:    
-        w_bish.append(Piece('Bishop',4,'♝',2,i,0))
+        w_bish.append(Piece('Bishop',4,'♝',2,i,0,[[1,1]],1))
         w_bish[len(w_bish)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(4):
-        w_king.append(Piece('King',6,'♚',1,i,0))
+        w_king.append(Piece('King',6,'♚',1,i,0,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
         w_king[len(w_king)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(3):
-        w_quen.append(Piece('Queen',5,'♛',1,i,0))
+        w_quen.append(Piece('Queen',5,'♛',1,i,0,[[1,1],[1,0],[0,1]],1))
         w_quen[len(w_quen)-1].piecetoboard()
 
 
 
 
 for i in range(0,8):
-    b_pawn.append(Piece('Pawn',1,'♙',8,i,6))
+    b_pawn.append(Piece('Pawn',1,'♙',8,i,6,[[0,1],[1,1],[-1,1]],0))
     b_pawn[len(b_pawn)-1].piecetoboard()
 
 for i in range(0,8):
     if i==1 or i==6:
-        b_knig.append(Piece('Knight',2,'♘',2,i,7))
+        b_knig.append(Piece('Knight',2,'♘',2,i,7,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
         b_knig[len(b_knig)-1].piecetoboard()
 
 for i in range(0,8):
     if i==0 or i==7:
-        b_rook.append(Piece('Rook',3,'♖',2,i,7))
+        b_rook.append(Piece('Rook',3,'♖',2,i,7,[[1,0],[0,1]],1))
         b_rook[len(b_rook)-1].piecetoboard()
 
 
 for i in range(0,8):
     if i==2 or i==5:  
-        b_bish.append(Piece('Bishop',4,'♗',2,i,7))
+        b_bish.append(Piece('Bishop',4,'♗',2,i,7,[[1,1]],1))
         b_bish[len(b_bish)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(4):       
-        b_king.append(Piece('King',6,'♕',1,i,7))
+        b_king.append(Piece('King',6,'♕',1,i,7,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
         b_king[len(b_king)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(3):  
-        b_quen.append(Piece('Queen',5,'♔',1,i,7))
+        b_quen.append(Piece('Queen',5,'♔',1,i,7,[[1,1],[1,0],[0,1]],1))
         b_quen[len(b_quen)-1].piecetoboard()
 
 
@@ -248,7 +252,7 @@ b_quen.piecetoboard()'''
 ########################################################
 ################ Start of Main Script ##################
 #########################################################
-for i in range(5):
+for i in range(3):
     reprint('BOOTING UP CHESS.')
     time.sleep(0.2)
     reprint('BOOTING UP CHESS..')
@@ -257,7 +261,7 @@ for i in range(5):
     time.sleep(0.2)
 print('                            ')
 print('BOOTED!\n')
-for i in range(5):
+for i in range(3):
     reprint('CONSTRUCTING BOARD.')
     time.sleep(0.2)
     reprint('CONSTRUCTING BOARD..')
@@ -266,7 +270,7 @@ for i in range(5):
     time.sleep(0.2)
 print('                          ')
 print('CONSTRUCTED!\n')
-for i in range(5):
+for i in range(3):
     reprint('RECRUITING PIECES.')
     time.sleep(0.2)
     reprint('RECRUITING PIECES..')
@@ -280,8 +284,36 @@ print(board.disp,'\n')
 print('Move which piece?')
 xy=inputxy()
 print('xy: ',xy)
+print('Move',(board.grid[xy[1],xy[0]][0]),'where?')
 print(board.grid[xy[1],xy[0]])
 
+newxy=inputxy()
+
+xydiff=[newxy[0]-xy[0],newxy[1]-xy[1]]
+
+print(board.grid[xy[1],xy[0]][6][0])
+
+bigmove=board.grid[xy[1],xy[0]][7]
+print(bigmove)
+for i in range(0,len(board.grid[xy[1],xy[0]][6])):
+    if bigmove==0:
+        if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
+            board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+            board.disp[xy[1],xy[0]]='☐'
+            board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+            break
+    if bigmove==1:
+
+        if ((xydiff[0]==0) or (xydiff[1]==0)) and  (board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0):
+
+            print(board.grid[newxy[1],newxy[0]])
+            board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+            board.disp[xy[1],xy[0]]='☐'
+            board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+            break
+
+
+print('\n',board.disp,'\n')
 '''if event.name == 'n':
         print(event.name)
         break'''
