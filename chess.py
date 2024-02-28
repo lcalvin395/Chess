@@ -144,67 +144,67 @@ ydiff=0
 
 
 for i in range(0,8):
-    w_pawn.append(Piece('Pawn',1,'♟︎',8,i,1,[[0,-1],[-1,-1],[1,-1]],0))
+    w_pawn.append(Piece('w-Pawn',1,'♟︎',8,i,1,[[0,-1],[-1,-1],[1,-1]],0))
     w_pawn[len(w_pawn)-1].piecetoboard()
 
 
 
 for i in range(0,8):
     if i==1 or i==6:
-        w_knig.append(Piece('Knight',2,'♞',2,i,0,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
+        w_knig.append(Piece('w-Knight',2,'♞',2,i,0,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
         w_knig[len(w_knig)-1].piecetoboard()
 
 for i in range(0,8):
     if i==0 or i== 7:
-        w_rook.append(Piece('Rook',3,'♜',2,i,0,[[1,0],[0,1]],1))
+        w_rook.append(Piece('w-Rook',3,'♜',2,i,0,[[1,0],[0,1]],1))
         w_rook[len(w_rook)-1].piecetoboard()
 
 for i in range(0,8):
     if i==2 or i==5:    
-        w_bish.append(Piece('Bishop',4,'♝',2,i,0,[[1,1]],1))
+        w_bish.append(Piece('w-Bishop',4,'♝',2,i,0,[[1,1]],1))
         w_bish[len(w_bish)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(4):
-        w_king.append(Piece('King',6,'♚',1,i,0,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
+        w_king.append(Piece('w-King',6,'♚',1,i,0,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
         w_king[len(w_king)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(3):
-        w_quen.append(Piece('Queen',5,'♛',1,i,0,[[1,1],[1,0],[0,1]],1))
+        w_quen.append(Piece('w-Queen',5,'♛',1,i,0,[[1,1],[1,0],[0,1]],1))
         w_quen[len(w_quen)-1].piecetoboard()
 
 
 
 
 for i in range(0,8):
-    b_pawn.append(Piece('Pawn',1,'♙',8,i,6,[[0,1],[1,1],[-1,1]],0))
+    b_pawn.append(Piece('b-Pawn',1,'♙',8,i,6,[[0,1],[1,1],[-1,1]],0))
     b_pawn[len(b_pawn)-1].piecetoboard()
 
 for i in range(0,8):
     if i==1 or i==6:
-        b_knig.append(Piece('Knight',2,'♘',2,i,7,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
+        b_knig.append(Piece('b-Knight',2,'♘',2,i,7,[[2,-1],[-2,-1],[2,1],[-2,1],[-1,-2],[1,-2],[-1,2],[1,2]],0))
         b_knig[len(b_knig)-1].piecetoboard()
 
 for i in range(0,8):
     if i==0 or i==7:
-        b_rook.append(Piece('Rook',3,'♖',2,i,7,[[1,0],[0,1]],1))
+        b_rook.append(Piece('b-Rook',3,'♖',2,i,7,[[1,0],[0,1]],1))
         b_rook[len(b_rook)-1].piecetoboard()
 
 
 for i in range(0,8):
     if i==2 or i==5:  
-        b_bish.append(Piece('Bishop',4,'♗',2,i,7,[[1,1]],1))
+        b_bish.append(Piece('b-Bishop',4,'♗',2,i,7,[[1,1]],1))
         b_bish[len(b_bish)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(4):       
-        b_king.append(Piece('King',6,'♕',1,i,7,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
+        b_king.append(Piece('b-King',6,'♕',1,i,7,[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]],0))
         b_king[len(b_king)-1].piecetoboard()
 
 for i in range(0,8):
     if i==(3):  
-        b_quen.append(Piece('Queen',5,'♔',1,i,7,[[1,1],[1,0],[0,1]],1))
+        b_quen.append(Piece('b-Queen',5,'♔',1,i,7,[[1,1],[1,0],[0,1]],1))
         b_quen[len(b_quen)-1].piecetoboard()
 
 
@@ -290,27 +290,31 @@ print(board.grid[xy[1],xy[0]])
 newxy=inputxy()
 
 xydiff=[newxy[0]-xy[0],newxy[1]-xy[1]]
+xydir=[xydiff[0]/abs(xydiff[0]),xydiff[1]/abs(xydiff[1])]
 
 print(board.grid[xy[1],xy[0]][6][0])
 
 bigmove=board.grid[xy[1],xy[0]][7]
 print(bigmove)
-for i in range(0,len(board.grid[xy[1],xy[0]][6])):
-    if bigmove==0:
-        if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
-            board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
-            board.disp[xy[1],xy[0]]='☐'
-            board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
-            break
-    if bigmove==1:
 
-        if ((xydiff[0]==0) or (xydiff[1]==0)) and  (board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0):
+if nothing between where piece is and where it wants to go (and its not knight):
 
-            print(board.grid[newxy[1],newxy[0]])
-            board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
-            board.disp[xy[1],xy[0]]='☐'
-            board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
-            break
+    for i in range(0,len(board.grid[xy[1],xy[0]][6])):
+        if bigmove==0:
+            if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
+                board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                board.disp[xy[1],xy[0]]='☐'
+                board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                break
+        if bigmove==1:
+
+            if ((xydiff[0]==0) or (xydiff[1]==0)) and  ((board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0)):
+
+                print(board.grid[newxy[1],newxy[0]])
+                board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                board.disp[xy[1],xy[0]]='☐'
+                board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                break
 
 
 print('\n',board.disp,'\n')
