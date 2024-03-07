@@ -289,15 +289,29 @@ print(board.grid[xy[1],xy[0]])
 
 newxy=inputxy()
 
+xydir=[0,0]
+
 xydiff=[newxy[0]-xy[0],newxy[1]-xy[1]]
-xydir=[xydiff[0]/abs(xydiff[0]),xydiff[1]/abs(xydiff[1])]
+
+if xydiff[0]==0:
+    xydir[0]=0
+else:
+    xydir[0]=xydiff[0]/abs(xydiff[0])
+
+if xydiff[1]==0:
+    xydir[1]=0
+else:
+    xydir[1]=xydiff[1]/abs(xydiff[1])
+
+#xydir=[xydiff[0]/abs(xydiff[0]),xydiff[1]/abs(xydiff[1])]
 
 print(board.grid[xy[1],xy[0]][6][0])
 
 bigmove=board.grid[xy[1],xy[0]][7]
 print(bigmove)
 
-if nothing between where piece is and where it wants to go (and its not knight):
+#if nothing between where piece is and where it wants to go (and its not knight):#
+if (board.grid[xy[1],xy[0]][0] == 'w_Knight') or (board.grid[xy[1],xy[0]][0] == 'b_Knight'):
 
     for i in range(0,len(board.grid[xy[1],xy[0]][6])):
         if bigmove==0:
@@ -315,6 +329,19 @@ if nothing between where piece is and where it wants to go (and its not knight):
                 board.disp[xy[1],xy[0]]='☐'
                 board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
                 break
+
+if (board.grid[xy[1],xy[0]][0] != 'w_knight') and (board.grid[xy[1],xy[0]][0] != 'b_knight'):
+    print(xydiff)
+    print(xydir)
+    xycheck=xy
+    while (xycheck[1]!=newxy[1]-xydir[1]) and (xycheck[0]!=newxy[0]-xydir[0]):
+        xycheck[1]=xycheck[1]+xydir[1]
+        xycheck[0]=xycheck[0]+xydir[0]
+        print(board.grid[xycheck[1],xycheck[0]])
+        if board.grid[xycheck[1],xycheck[0]]!=0:
+            break
+
+
 
 
 print('\n',board.disp,'\n')
