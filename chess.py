@@ -79,13 +79,23 @@ def inputxy():
                         continue
                     continue
                 if n==0:
-                    xy.append(int(event.name))
-                    print(xy[0], end="\r", flush=True)
+                    if event.name=='e':
+                        xy.append((event.name))
+                        print(xy[0], end="\r", flush=True)   
+                    else:
+                        xy.append(int(event.name))
+                        print(xy[0], end="\r", flush=True)
                 if n==1:
-                    xy.append(int(event.name))
-                    #print(event.name, end="", flush=True)
-                    print(xy[0], end="", flush=True)
-                    print(xy[1], end="\r", flush=True)
+                    if event.name=='x':
+                        xy.append((event.name))
+                        print(xy[0], end="", flush=True)
+                        print(xy[1], end="\r", flush=True)
+                
+                    else:
+                        xy.append(int(event.name))
+                        #print(event.name, end="", flush=True)
+                        print(xy[0], end="", flush=True)
+                        print(xy[1], end="\r", flush=True)
                 if n==2 and event.name=='enter':
                     print('\n')
                     break
@@ -252,6 +262,8 @@ b_quen.piecetoboard()'''
 ########################################################
 ################ Start of Main Script ##################
 #########################################################
+'''00
+03
 for i in range(3):
     reprint('BOOTING UP CHESS.')
     time.sleep(0.2)
@@ -278,73 +290,88 @@ for i in range(3):
     reprint('RECRUITING PIECES...')
     time.sleep(0.2)
 print('                        ')
-print('RECRUITED!\n')
+print('RECRUITED!\n')'''
+
+
 print(board.disp,'\n')
 
-print('Move which piece?')
-xy=inputxy()
-print('xy: ',xy)
-print('Move',(board.grid[xy[1],xy[0]][0]),'where?')
-print(board.grid[xy[1],xy[0]])
 
-newxy=inputxy()
+o=0
+while o==0:
 
-xydir=[0,0]
 
-xydiff=[newxy[0]-xy[0],newxy[1]-xy[1]]
+    print('Move which piece?')
+    xy=inputxy()
+    if xy==['e','x']:
+        break
+    print('xy: ',xy)
+    print('Move',(board.grid[xy[1],xy[0]][0]),'where?')
+    print(board.grid[xy[1],xy[0]])
 
-if xydiff[0]==0:
-    xydir[0]=0
-else:
-    xydir[0]=xydiff[0]/abs(xydiff[0])
+    newxy=inputxy()
 
-if xydiff[1]==0:
-    xydir[1]=0
-else:
-    xydir[1]=xydiff[1]/abs(xydiff[1])
-
-#xydir=[xydiff[0]/abs(xydiff[0]),xydiff[1]/abs(xydiff[1])]
-
-print(board.grid[xy[1],xy[0]][6][0])
-
-bigmove=board.grid[xy[1],xy[0]][7]
-print(bigmove)
-
-#if nothing between where piece is and where it wants to go (and its not knight):#
-if (board.grid[xy[1],xy[0]][0] == 'w_Knight') or (board.grid[xy[1],xy[0]][0] == 'b_Knight'):
-
-    for i in range(0,len(board.grid[xy[1],xy[0]][6])):
-        if bigmove==0:
-            if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
-                board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
-                board.disp[xy[1],xy[0]]='☐'
-                board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
-                break
-        if bigmove==1:
-
-            if ((xydiff[0]==0) or (xydiff[1]==0)) and  ((board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0)):
-
-                print(board.grid[newxy[1],newxy[0]])
-                board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
-                board.disp[xy[1],xy[0]]='☐'
-                board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
-                break
-
-if (board.grid[xy[1],xy[0]][0] != 'w_knight') and (board.grid[xy[1],xy[0]][0] != 'b_knight'):
-    print(xydiff)
-    print(xydir)
-    xycheck=xy
-    while (xycheck[1]!=newxy[1]-xydir[1]) and (xycheck[0]!=newxy[0]-xydir[0]):
-        xycheck[1]=xycheck[1]+xydir[1]
-        xycheck[0]=xycheck[0]+xydir[0]
-        print(board.grid[xycheck[1],xycheck[0]])
-        if board.grid[xycheck[1],xycheck[0]]!=0:
-            break
+    xydir=[0,0]
 
 
 
+    xydiff=[int(newxy[0]-xy[0]),int(newxy[1]-xy[1])]
 
-print('\n',board.disp,'\n')
+    if xydiff[0]==0:
+        xydir[0]=0
+    else:
+        xydir[0]=int(xydiff[0]/abs(xydiff[0]))
+
+    if xydiff[1]==0:
+        xydir[1]=0
+    else:
+        xydir[1]=int(xydiff[1]/abs(xydiff[1]))
+
+    #xydir=[xydiff[0]/abs(xydiff[0]),xydiff[1]/abs(xydiff[1])]
+
+
+
+    bigmove=board.grid[xy[1],xy[0]][7]
+
+
+
+    #if nothing between where piece is and where it wants to go (and its not knight):#
+    if (board.grid[xy[1],xy[0]][0] == 'w-Knight') or (board.grid[xy[1],xy[0]][0] == 'b-Knight'):
+        for i in range(0,len(board.grid[xy[1],xy[0]][6])):
+            if bigmove==0:
+                if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
+                    board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                    board.disp[xy[1],xy[0]]='☐'
+                    board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                    break
+            if bigmove==1:
+                if ((xydiff[0]==0) or (xydiff[1]==0)) and  ((board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0)):
+                    board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                    board.disp[xy[1],xy[0]]='☐'
+                    board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                    break
+    else:
+        breakout=1
+        xycheck=xy
+        while ((xycheck[1]!=newxy[1]-xydir[1]) or (xycheck[0]!=newxy[0]-xydir[0])):
+            xycheck[1]=xycheck[1]+xydir[1]
+            xycheck[0]=xycheck[0]+xydir[0]
+            if board.grid[xycheck[1],xycheck[0]]!=0:
+                breakout=0
+        if breakout==1:
+            for i in range(0,len(board.grid[xy[1],xy[0]][6])):
+                if bigmove==0:
+                    if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
+                        board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                        board.disp[xy[1],xy[0]]='☐'
+                        board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                        break
+                if bigmove==1:
+                    if ((xydiff[0]==0) or (xydiff[1]==0)) and  ((board.grid[xy[1],xy[0]][6][i][0]==0) or (board.grid[xy[1],xy[0]][6][i][1]==0)):
+                        board.disp[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]][2]
+                        board.disp[xy[1],xy[0]]='☐'
+                        board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
+                        break
+    print('\n',board.disp,'\n')
 '''if event.name == 'n':
         print(event.name)
         break'''
