@@ -310,7 +310,8 @@ while o==0:
     print('Move which piece?')
 
     xy=inputxy()
-
+    if xy==['e','x']:
+        break
     if whoseturn==0 and board.grid[xy[1],xy[0]][0][0]!='w':
         print('\nWRONG COLOUR\n')
         continue
@@ -319,8 +320,7 @@ while o==0:
         print('\nWRONG COLOUR\n')
         continue
 
-    if xy==['e','x']:
-        break
+
     print('xy: ',xy)
     print(board.disp,'\n')
     print('Move',(board.grid[xy[1],xy[0]][0]),'where?')
