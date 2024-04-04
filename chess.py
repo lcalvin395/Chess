@@ -312,6 +312,11 @@ while o==0:
     xy=inputxy()
     if xy==['e','x']:
         break
+
+    if board.grid[xy[1],xy[0]]==0:
+        print('\nNO PIECE HERE\nTRY AGAIN\n')
+        continue
+
     if whoseturn==0 and board.grid[xy[1],xy[0]][0][0]!='w':
         print('\nWRONG COLOUR\n')
         continue
@@ -353,6 +358,10 @@ while o==0:
 
 
     bigmove=board.grid[xy[1],xy[0]][7]
+    
+
+    PieceTaken=board.grid[newxy[1],newxy[0]]
+    print(PieceTaken)
 
     print((xy))
     print((xy))
@@ -409,6 +418,15 @@ while o==0:
                         board.grid[newxy[1],newxy[0]]=board.grid[xy[1],xy[0]]
                         board.grid[xy[1],xy[0]]=0
                         break
+    if PieceTaken!=0:
+        print('%s taken'%PieceTaken[0])
+        if (PieceTaken[0][2]=='K') and (PieceTaken[0][3]=='i'):
+            if whoseturn==0:
+                print('WHITE WINS!!!')
+            if whoseturn==1:
+                print('BLACK WINS!!!')
+            break
+    
     whoseturn=1-whoseturn
 
 '''if event.name == 'n':
