@@ -386,10 +386,10 @@ while o==0:
         breakout=1
         xycheck=xy[:]
         while ((xycheck[1]!=newxy[1]-xydir[1]) or (xycheck[0]!=newxy[0]-xydir[0])):           #Checking if move is being blocked by another piece
-            print('xycheck:',xycheck)
+            
             xycheck[1]=xycheck[1]+xydir[1]
             xycheck[0]=xycheck[0]+xydir[0]
-            print('xycheck:',xycheck)
+            
             if board.grid[xycheck[1],xycheck[0]]!=0:
                 breakout=0     
                 print('move blocked')  
