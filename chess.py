@@ -4,7 +4,7 @@ import numpy as np
 import keyboard
 import time
 
-
+letterindex='ABCDEFGH'
 
 
 class Piece:
@@ -52,7 +52,7 @@ def reprint(msg, finish=False):
     print(msg, end=end)
 
 def inputxy():
-    print('Enter X and Y value followed by enter: \n')
+    print('Enter letter and number value followed by enter: \n')
     xy=[]
     n=0
     print('__', end="\r", flush=True)
@@ -70,7 +70,8 @@ def inputxy():
                     print('__', end="\r", flush=True)
                     try:
 
-                        print(xy[0], end="\r", flush=True)
+                        if n>0:
+                            print(xtoprnt, end="\r", flush=True)
                     except:
                         continue
                     try:
@@ -83,8 +84,10 @@ def inputxy():
                         xy.append((event.name))
                         print(xy[0], end="\r", flush=True)   
                     else:
-                        xy.append(int(event.name))
-                        print(xy[0], end="\r", flush=True)
+                        xy.append((event.name))
+                        xtoprnt=event.name
+                        xy[0]=letterindex.index(xy[0])
+                        print(xtoprnt, end="\r", flush=True)
                 if n==1:
                     if event.name=='x':
                         xy.append((event.name))
@@ -94,7 +97,7 @@ def inputxy():
                     else:
                         xy.append(int(event.name))
                         #print(event.name, end="", flush=True)
-                        print(xy[0], end="", flush=True)
+                        print(xtoprnt, end="", flush=True)
                         print(xy[1], end="\r", flush=True)
                 if n==2 and event.name=='enter':
                     print('\n')
@@ -102,9 +105,12 @@ def inputxy():
                 #print(xy, end="\r", flush=True)
                 n+=1
         except:
-            print('Correct input is 2 numbers followed by enter......\nTry again.')
-            print('Enter X and Y value of piece you want to move followed by enter: \n')
+            print('Correct input is a letter and number followed by enter......\nTry again.')
+            print('Enter letter and number value followed by enter: \n')
             print('__',end="\r", flush=True)
+            xy=[]
+            n=0
+
             continue
     #print(xy[:], end="", flush=True)
     print('\n')
@@ -112,6 +118,10 @@ def inputxy():
     print('\n')
     print('\n')
     print('\n')
+    try:
+        xy[0]=bottomline.index(xy[0])
+    except:
+        print()
     return(xy)
 
 
@@ -297,17 +307,26 @@ print('RECRUITED!\n')'''
 
 whoseturn=0    #    0 is white   ::::    1 is black
 
+bottomline=['A   B   C   D   E   F   G   H']
 o=0
+reset=0
 while o==0:
-        
-    print('\n',board.disp,'\n')
+    if reset==0:
+        if whoseturn==0:
+            board.grid=board.grid[::-1]
+            board.disp=board.disp[::-1]
+            print('\nWHITE\'S TURN\n')
 
-    if whoseturn==0:
-        print('WHITE\'S TURN')
-    if whoseturn==1:
-        print('BLACK\'S TURN')
+        if whoseturn==1:
+            board.grid=board.grid[::-1]
+            board.disp=board.disp[::-1]
+            print('\nBLACK\'S TURN\n')
+    reset=0
+    for i in range(0,len(board.disp)):
+        print(i, board.disp[i])
+    print('.',bottomline)
 
-    print('Move which piece?')
+    print('\nMove which piece?\n')
 
     xy=inputxy()
     if xy==['e','x']:
@@ -315,19 +334,28 @@ while o==0:
 
     if board.grid[xy[1],xy[0]]==0:
         print('\nNO PIECE HERE\nTRY AGAIN\n')
+        reset=1
         continue
 
     if whoseturn==0 and board.grid[xy[1],xy[0]][0][0]!='w':
         print('\nWRONG COLOUR\n')
+        reset=1
         continue
     
     if whoseturn==1 and board.grid[xy[1],xy[0]][0][0]!='b':
         print('\nWRONG COLOUR\n')
+        reset=1
         continue
 
 
-    print('xy: ',xy)
-    print(board.disp,'\n')
+    #print('xy: ',xy)
+
+    for i in range(0,len(board.disp)):
+
+        print(i, board.disp[i])
+    print('.',bottomline)
+
+
     print('Move',(board.grid[xy[1],xy[0]][0]),'where?')
     print(board.grid[xy[1],xy[0]])
 
@@ -336,6 +364,8 @@ while o==0:
     if board.grid[newxy[1],newxy[0]]!=0:
         if board.grid[xy[1],xy[0]][0][0]==board.grid[newxy[1],newxy[0]][0][0]:
             print('THIS IS A FRIENDLY PIECE!')
+            reset=1
+            continue
 
     xydir=[0,0]
 
@@ -363,9 +393,9 @@ while o==0:
     PieceTaken=board.grid[newxy[1],newxy[0]]
     print(PieceTaken)
 
-    print((xy))
-    print((xy))
-    #if nothing between where piece is and where it wants to go (and its not knight):#
+    #print((xy))
+    #print((xy))
+    
     if (board.grid[xy[1],xy[0]][0] == 'w-Knight') or (board.grid[xy[1],xy[0]][0] == 'b-Knight'):
         for i in range(0,len(board.grid[xy[1],xy[0]][6])):
             if bigmove==0:
@@ -395,7 +425,7 @@ while o==0:
                 print('move blocked')  
                                                           
         if breakout==1:
-            print((xy))
+            #print((xy))
             for i in range(0,len(board.grid[xy[1],xy[0]][6])):
                 if bigmove==0:
                     if (xydiff == board.grid[xy[1],xy[0]][6][i]) or (abs(xydiff[0])/abs(xydiff[1])==board.grid[xy[1],xy[0]][6][i][0]/board.grid[xy[1],xy[0]][6][i][1]) :
