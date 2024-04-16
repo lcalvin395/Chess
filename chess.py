@@ -7,7 +7,7 @@ import platform
 
 if platform.system()=='Windows':
     import keyboard
-if platform.system()=='Sonoma':
+if platform.system()=='Darwin':
     from pynput import keyboard
 
 
