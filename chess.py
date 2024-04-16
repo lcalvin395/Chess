@@ -1,8 +1,15 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-import keyboard
+
 import time
+import platform
+
+if platform.system()=='Windows':
+    import keyboard
+if platform.system()=='Sonoma':
+    from pynput import keyboard
+
 
 letterindex='ABCDEFGH'
 
