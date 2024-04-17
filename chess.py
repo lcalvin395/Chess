@@ -7,8 +7,10 @@ import platform
 
 if platform.system()=='Windows':
     import keyboard
+    pltform='win'
 if platform.system()=='Darwin':
     from pynput import keyboard
+    pltform='dar'
 
 
 letterindex='ABCDEFGH'
